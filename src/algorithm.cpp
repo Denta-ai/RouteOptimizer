@@ -104,7 +104,7 @@ std::vector<int> traceShortestPath(const std::vector<int>& previousNodes, int ta
     return path;
 }
 
-void calShortPath() {
+void callShortPath() {
     int numNodes = 25;
     int startNode = 0;
     int targetNode = 0;

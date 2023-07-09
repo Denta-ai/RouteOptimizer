@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main(){
-  calShortPath();
+  callShortPath();
   generateGraph();
   
   return 0;

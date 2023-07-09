@@ -9,9 +9,10 @@ struct Point {
     int label;
 };
 
+// rading, saving and writting edges
 void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
-    std::ifstream pntsFile("D:/Github-Projects/TravelRouteOptimizer/db/" + flePnts);
-    std::ifstream edgesFile("D:/Github-Projects/TravelRouteOptimizer/db/" + fleEdges);
+    std::ifstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
+    std::ifstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
 
     if (!pntsFile.is_open() || !edgesFile.is_open()) {
         std::cout << "Failed to open the files." << std::endl;
@@ -28,7 +29,7 @@ void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
         }
     }
 
-    std::ofstream outputFile("D:/Github-Projects/TravelRouteOptimizer/db/edges_data.txt");
+    std::ofstream outputFile("D:/Github-Projects/RouteOptimizer/db/edges_data.txt");
     std::vector<bool> visited(points.size(), false);
     while (std::getline(edgesFile, line)) {
         std::istringstream iss(line);
@@ -55,10 +56,10 @@ void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
     outputFile.close();
 }
 
-
+// reading, writting and calculating weight 
 void loadWeights(const std::string& flePnts, const std::string& fleEdges) {
-    std::ifstream pntsFile("D:/Github-Projects/TravelRouteOptimizer/db/" + flePnts);
-    std::ifstream edgesFile("D:/Github-Projects/TravelRouteOptimizer/db/" + fleEdges);
+    std::ifstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
+    std::ifstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
 
     if (!pntsFile.is_open() || !edgesFile.is_open()) {
         std::cout << "Failed to open the files." << std::endl;
@@ -75,7 +76,7 @@ void loadWeights(const std::string& flePnts, const std::string& fleEdges) {
         }
     }
 
-    std::ofstream outputFile("D:/Github-Projects/TravelRouteOptimizer/db/weights_data.txt");
+    std::ofstream outputFile("D:/Github-Projects/RouteOptimizer/db/weights_data.txt");
     while (std::getline(edgesFile, line)) {
         std::istringstream iss(line);
         int index1, index2;
@@ -99,7 +100,7 @@ void generateGraph() {
     std::string flePnts = "pnts.txt";
     std::string fleEdges = "edges.txt";
 
-    std::ofstream pntsFile("D:/Github-Projects/TravelRouteOptimizer/db/" + flePnts);
+    std::ofstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
     if (!pntsFile.is_open()) {
         std::cout << "Failed to open the pnts.txt file." << std::endl;
         return;
@@ -133,7 +134,7 @@ void generateGraph() {
 
     pntsFile.close();
 
-    std::ofstream edgesFile("D:/Github-Projects/TravelRouteOptimizer/db/" + fleEdges);
+    std::ofstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
     if (!edgesFile.is_open()) {
         std::cout << "Failed to open the edges.txt file." << std::endl;
         return;
@@ -192,15 +193,15 @@ void generateGraph() {
     }
 
     fprintf(gnuplotPipe, "set terminal png\n");
-    fprintf(gnuplotPipe, "set output 'D:/Github-Projects/TravelRouteOptimizer/img/graph.png'\n");
+    fprintf(gnuplotPipe, "set output 'D:/Github-Projects/RouteOptimizer/img/graph.png'\n");
     fprintf(gnuplotPipe, "set key off\n");
     fprintf(gnuplotPipe, "set xrange [0:100]\n");
     fprintf(gnuplotPipe, "set yrange [0:100]\n");
-    fprintf(gnuplotPipe, "plot 'D:/Github-Projects/TravelRouteOptimizer/db/edges_data.txt' using 1:2:3 with labels font ',8' offset -1,-1 textcolor 'black' point pt 7 ps 2 notitle,'' using 1:2 with linespoint pt 7 ps 2 notitle,'D:/Github-Projects/TravelRouteOptimizer/db/weights_data.txt' using 1:2:3 with labels tc rgb 'red' notitle\n");
+    fprintf(gnuplotPipe, "plot 'D:/Github-Projects/RouteOptimizer/db/edges_data.txt' using 1:2:3 with labels font ',8' offset -1,-1 textcolor 'black' point pt 7 ps 2 notitle,'' using 1:2 with linespoint pt 7 ps 2 notitle,'D:/Github-Projects/RouteOptimizer/db/weights_data.txt' using 1:2:3 with labels tc rgb 'red' notitle\n");
 
     _pclose(gnuplotPipe);
 
-    std::string command = "start D:/Github-Projects/TravelRouteOptimizer/img/graph.png";
+    std::string command = "start D:/Github-Projects/RouteOptimizer/img/graph.png";
     system(command.c_str());
 
     return;
