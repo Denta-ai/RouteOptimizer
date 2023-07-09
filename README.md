@@ -9,7 +9,7 @@
 <h2>Installation</h2>
 <p>To use the Route Optimizer, follow these steps:</p>
 <ol>
-  <li>Install the gnuplot here: http://www.gnuplot.info/download.html and follow the instruction</li>
+  <li>Install the gnuplot based on your operation system here: http://www.gnuplot.info/download.html and follow the instruction</li>
   <li>Clone the repository:</li>
   <pre>
     <code>$ git clone &lt;repository_url&gt;
