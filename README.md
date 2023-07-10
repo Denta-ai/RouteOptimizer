@@ -16,7 +16,7 @@
     $ cd &lt;repository_directory&gt;</code></pre>
   <li>Build the project (if required) using your preferred build system.</li>
   <li>Run the program:</li>
-  <pre>    <code>$ ./main</code></pre>
+  <pre>    <code>$ ./main.exe</code></pre>
 </ol>
 
 <h2>Features</h2>
