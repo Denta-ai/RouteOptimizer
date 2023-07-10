@@ -3,8 +3,10 @@
 #include <iostream>
 
 int main(){
-  callShortPath();
+
+  // calling primary function from graph.cpp and algorithm.cpp file
   generateGraph();
+  callShortPath();
   
   return 0;
 }
