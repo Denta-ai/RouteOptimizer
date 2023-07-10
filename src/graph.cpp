@@ -9,16 +9,18 @@ struct Point {
     int label;
 };
 
-// rading, saving and writting edges
+// reading, saving and writting edges
 void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
+
+    // open input files from pntsFile (pnts.txt) and edgesFile (edges.txt)
     std::ifstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
     std::ifstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
-
     if (!pntsFile.is_open() || !edgesFile.is_open()) {
         std::cout << "Failed to open the files." << std::endl;
         return;
     }
 
+    // read points on pntsFile (pnts.txt) each line and store them in vector
     std::vector<Point> points;
     std::string line;
     while (std::getline(pntsFile, line)) {
@@ -29,13 +31,18 @@ void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
         }
     }
 
+    // open output file from outputFile (edges_data.txt) to write the processed data 
     std::ofstream outputFile("D:/Github-Projects/RouteOptimizer/db/edges_data.txt");
     std::vector<bool> visited(points.size(), false);
+
+    // process each line in edgesFile (edges.txt)
     while (std::getline(edgesFile, line)) {
         std::istringstream iss(line);
         int index1, index2;
         if (iss >> index1 >> index2) {
             if (index1 >= 0 && index1 < points.size() && index2 >= 0 && index2 < points.size()) {
+
+                // Write the points to the output file if not visited before
                 if (!visited[index1]) {
                     outputFile << points[index1].x << " " << points[index1].y << " " << points[index1].label << "\n";
                     visited[index1] = true;
@@ -44,6 +51,8 @@ void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
                     outputFile << points[index2].x << " " << points[index2].y << " " << points[index2].label << "\n";
                     visited[index2] = true;
                 }
+
+                // Write the edge coordinates to the outputFile (edges_data.txt)
                 outputFile << "\n";
                 outputFile << points[index1].x << " " << points[index1].y << "\n";
                 outputFile << points[index2].x << " " << points[index2].y << "\n\n";
@@ -51,6 +60,7 @@ void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
         }
     }
 
+    // close input and output files
     pntsFile.close();
     edgesFile.close();
     outputFile.close();
@@ -58,14 +68,16 @@ void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
 
 // reading, writting and calculating weight 
 void loadWeights(const std::string& flePnts, const std::string& fleEdges) {
+
+    // open input files on pntsFile (pnts.txt) and edgesFile (edges.txt)
     std::ifstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
     std::ifstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
-
     if (!pntsFile.is_open() || !edgesFile.is_open()) {
         std::cout << "Failed to open the files." << std::endl;
         return;
     }
 
+    // read points on pntsFile (pnts.txt) each line and store them in vector
     std::vector<Point> points;
     std::string line;
     while (std::getline(pntsFile, line)) {
@@ -76,7 +88,10 @@ void loadWeights(const std::string& flePnts, const std::string& fleEdges) {
         }
     }
 
+    // open outputFile (weights_data.txt) to write the processed data
     std::ofstream outputFile("D:/Github-Projects/RouteOptimizer/db/weights_data.txt");
+
+    // process each line on edgesFile (edges.txt)
     while (std::getline(edgesFile, line)) {
         std::istringstream iss(line);
         int index1, index2;
@@ -84,28 +99,35 @@ void loadWeights(const std::string& flePnts, const std::string& fleEdges) {
         double offsetX, offsetY;
         if (iss >> index1 >> index2 >> weight >> offsetX >> offsetY) {
             if (index1 >= 0 && index1 < points.size() && index2 >= 0 && index2 < points.size()) {
+                // Calculate the average coordinates with offsets
                 double averageX = (points[index1].x + points[index2].x) / 2.0 + offsetX;
                 double averageY = (points[index1].y + points[index2].y) / 2.0 + offsetY;
+
+                // Write the average coordinates and weight to the output file
                 outputFile << averageX << "\t" << averageY << "\t" << weight << "\n";
             }
         }
     }
 
+    // close input and output files
     pntsFile.close();
     edgesFile.close();
     outputFile.close();
 }
 
+// generate graph visualization
 void generateGraph() {
     std::string flePnts = "pnts.txt";
     std::string fleEdges = "edges.txt";
 
+    // open pnts.txt to write point coordinate
     std::ofstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
     if (!pntsFile.is_open()) {
         std::cout << "Failed to open the pnts.txt file." << std::endl;
         return;
     }
-
+    
+    // Write point coordinates to pntsFile with format  x | y | label/dot 
     pntsFile << "50 50 0\n";
     pntsFile << "50 30 1\n";
     pntsFile << "30 50 2\n";
@@ -134,12 +156,14 @@ void generateGraph() {
 
     pntsFile.close();
 
+    // open edges.txt to write edge information
     std::ofstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
     if (!edgesFile.is_open()) {
         std::cout << "Failed to open the edges.txt file." << std::endl;
         return;
     }
 
+    // write edge information with format: label 1 | label 2 | edges weight | coordinate label edges weight 
     edgesFile << "0 1 30 0 0\n";
     edgesFile << "0 2 15 0 0\n";
     edgesFile << "0 3 20 0 0\n";
@@ -183,15 +207,18 @@ void generateGraph() {
 
     edgesFile.close();
 
+    // Load edges and weights from files and process them
     loadEdges(flePnts, fleEdges);
     loadWeights(flePnts, fleEdges);
 
+    // Generate a graph visualization using Gnuplot
     FILE* gnuplotPipe = _popen("gnuplot -persist", "w");
     if (!gnuplotPipe) {
         std::cerr << "Error opening Gnuplot pipe." << std::endl;
         return;
     }
 
+    // write the gnuplot command to set visual graph
     fprintf(gnuplotPipe, "set terminal png\n");
     fprintf(gnuplotPipe, "set output 'D:/Github-Projects/RouteOptimizer/img/graph.png'\n");
     fprintf(gnuplotPipe, "set key off\n");
@@ -201,6 +228,7 @@ void generateGraph() {
 
     _pclose(gnuplotPipe);
 
+    // Open the generated graph image
     std::string command = "start D:/Github-Projects/RouteOptimizer/img/graph.png";
     system(command.c_str());
 

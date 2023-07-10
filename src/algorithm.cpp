@@ -4,7 +4,7 @@
 
 const int INF = 1e9;
 
-// Accept user input
+// Accept user input for the target node
 void acceptUserInput(int& targetNode) {
     std::cout << "Input destination node: ";
     std::cin >> targetNode;
@@ -14,6 +14,7 @@ void acceptUserInput(int& targetNode) {
 std::vector<std::vector<std::pair<int, int>>> createGraph() {
     std::vector<std::vector<std::pair<int, int>>> graph(25);
 
+    // Add edges and weights to the graph
     graph[0].push_back({1, 30});
     graph[0].push_back({2, 15});
     graph[0].push_back({3, 30});
@@ -58,7 +59,7 @@ std::vector<std::vector<std::pair<int, int>>> createGraph() {
     return graph;
 }
 
-// Dijkstra algorithm to find the shortest path
+// Dijkstra's algorithm to find the shortest path from startNode to all other nodes
 std::vector<int> dijkstra(const std::vector<std::vector<std::pair<int, int>>>& graph, int startNode, std::vector<int>& previousNodes) {
     int numNodes = graph.size();
     std::vector<int> distances(numNodes, INF);
@@ -104,17 +105,27 @@ std::vector<int> traceShortestPath(const std::vector<int>& previousNodes, int ta
     return path;
 }
 
+// call the result short path from acceptUserInput funtion and dijkstra function 
 void callShortPath() {
     int numNodes = 25;
     int startNode = 0;
     int targetNode = 0;
     
     acceptUserInput(targetNode);
+
+    // Create the graph
     std::vector<std::vector<std::pair<int, int>>> graph = createGraph();
+
+     // Initialize the previousNodes vector with -1
     std::vector<int> previousNodes(numNodes, -1);
+
+    // Perform Dijkstra's algorithm to find the shortest path
     std::vector<int> distances = dijkstra(graph, startNode, previousNodes);
+
+    // Trace the shortest path from the start node to the target node
     std::vector<int> shortestPath = traceShortestPath(previousNodes, targetNode);
 
+    // Print the shortest path and its distance
     std::cout << "Shortest path from node " << startNode << " to node " << targetNode << ": " << distances[targetNode] << std::endl << std::endl;
     std::cout << "Route :";
     for (int i = shortestPath.size() - 1; i >= 0; --i) {
