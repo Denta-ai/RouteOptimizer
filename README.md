@@ -18,6 +18,7 @@
   <li>Run the program:</li>
   <pre>    <code>$ ./main.exe</code></pre>
 </ol>
+<p><bold>Note</bold>: if you can't run the program. Remember to change the directory path for the files.</p>
 
 <h2>Features</h2>
 <ul>
