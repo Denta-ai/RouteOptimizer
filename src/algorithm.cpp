@@ -9,6 +9,9 @@ const int INF = 1e9;
 void acceptUserInput(int& targetNode) {
     std::cout << "Input destination node: ";
     std::cin >> targetNode;
+    if (targetNode < 0 || targetNode > 25){
+        std::cout << "Invalid input!";
+    }
 }
 
 // Example graph represented as an adjacency list
