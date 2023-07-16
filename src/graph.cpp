@@ -4,14 +4,8 @@
 #include <sstream>
 #include <vector>
 
-struct Point {
-    double x;
-    double y;
-    int label;
-};
-
 // reading, saving and writting edges
-void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
+void Graph::loadEdges(const std::string& flePnts, const std::string& fleEdges) {
 
     // open input files from pntsFile (pnts.txt) and edgesFile (edges.txt)
     std::ifstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
@@ -22,11 +16,11 @@ void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
     }
 
     // read points on pntsFile (pnts.txt) each line and store them in vector
-    std::vector<Point> points;
+    std::vector<Graph> points;
     std::string line;
     while (std::getline(pntsFile, line)) {
         std::istringstream iss(line);
-        Point p;
+        Graph p;
         if (iss >> p.x >> p.y >> p.label) {
             points.push_back(p);
         }
@@ -68,7 +62,7 @@ void loadEdges(const std::string& flePnts, const std::string& fleEdges) {
 }
 
 // reading, writting and calculating weight 
-void loadWeights(const std::string& flePnts, const std::string& fleEdges) {
+void Graph::loadWeights(const std::string& flePnts, const std::string& fleEdges) {
 
     // open input files on pntsFile (pnts.txt) and edgesFile (edges.txt)
     std::ifstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
@@ -79,11 +73,11 @@ void loadWeights(const std::string& flePnts, const std::string& fleEdges) {
     }
 
     // read points on pntsFile (pnts.txt) each line and store them in vector
-    std::vector<Point> points;
+    std::vector<Graph> points;
     std::string line;
     while (std::getline(pntsFile, line)) {
         std::istringstream iss(line);
-        Point p;
+        Graph p;
         if (iss >> p.x >> p.y) {
             points.push_back(p);
         }
@@ -117,7 +111,7 @@ void loadWeights(const std::string& flePnts, const std::string& fleEdges) {
 }
 
 // generate graph visualization
-void generateGraph() {
+void Graph::isGenerate() {
     std::string flePnts = "pnts.txt";
     std::string fleEdges = "edges.txt";
 
