@@ -3,8 +3,15 @@
 #include <string>
 
 // function declaration from graph.cpp
-void loadEdges(const std::string& flePnts, const std::string& fleEdges);
-void loadWeights(const std::string& flePnts, const std::string& fleEdges);
-void generateGraph();
+class Graph {
+  public:
+    void loadEdges(const std::string& flePnts, const std::string& fleEdges);
+    void loadWeights(const std::string& flePnts, const std::string& fleEdges);
+    void isGenerate();
+  private:
+    double x;
+    double y;
+    int label;
+};
 
 #endif
