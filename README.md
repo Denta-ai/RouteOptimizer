@@ -13,7 +13,7 @@
   <li>Clone the repository:</li>
   <pre>
     <code>$ git clone &lt;repository_url&gt;
-    $ cd &lt;repository_directory&gt;</code></pre>
+    $ cd &lt;repository_directory&gt; // look for where main.exe file located to </code></pre>
   <li>Build the project (if required) using your preferred build system.</li>
   <li>Run the program:</li>
   <pre>    <code>$ ./main.exe</code></pre>
