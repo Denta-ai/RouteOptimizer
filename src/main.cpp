@@ -3,10 +3,12 @@
 #include <iostream>
 
 int main(){
+  Graph Graph;
+  Short_Path Short_Path; 
 
   // calling primary function from graph.cpp and algorithm.cpp file
-  generateGraph();
-  callShortPath();
+  Graph.isGenerate();
+  Short_Path.isCalculate();
   
   return 0;
 }
