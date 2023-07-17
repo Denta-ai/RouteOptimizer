@@ -8,8 +8,8 @@
 void Graph::loadEdges(const std::string& flePnts, const std::string& fleEdges) {
 
     // open input files from pntsFile (pnts.txt) and edgesFile (edges.txt)
-    std::ifstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
-    std::ifstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
+    std::ifstream pntsFile("../db/" + flePnts);
+    std::ifstream edgesFile("../db/" + fleEdges);
     if (!pntsFile.is_open() || !edgesFile.is_open()) {
         std::cout << "Failed to open the files." << std::endl;
         return;
@@ -27,7 +27,7 @@ void Graph::loadEdges(const std::string& flePnts, const std::string& fleEdges) {
     }
 
     // open output file from outputFile (edges_data.txt) to write the processed data 
-    std::ofstream outputFile("D:/Github-Projects/RouteOptimizer/db/edges_data.txt");
+    std::ofstream outputFile("../db/edges_data.txt");
     std::vector<bool> visited(points.size(), false);
 
     // process each line in edgesFile (edges.txt)
@@ -65,8 +65,8 @@ void Graph::loadEdges(const std::string& flePnts, const std::string& fleEdges) {
 void Graph::loadWeights(const std::string& flePnts, const std::string& fleEdges) {
 
     // open input files on pntsFile (pnts.txt) and edgesFile (edges.txt)
-    std::ifstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
-    std::ifstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
+    std::ifstream pntsFile("../db/" + flePnts);
+    std::ifstream edgesFile("../db/" + fleEdges);
     if (!pntsFile.is_open() || !edgesFile.is_open()) {
         std::cout << "Failed to open the files." << std::endl;
         return;
@@ -84,7 +84,7 @@ void Graph::loadWeights(const std::string& flePnts, const std::string& fleEdges)
     }
 
     // open outputFile (weights_data.txt) to write the processed data
-    std::ofstream outputFile("D:/Github-Projects/RouteOptimizer/db/weights_data.txt");
+    std::ofstream outputFile("../db/weights_data.txt");
 
     // process each line on edgesFile (edges.txt)
     while (std::getline(edgesFile, line)) {
@@ -116,7 +116,7 @@ void Graph::isGenerate() {
     std::string fleEdges = "edges.txt";
 
     // open pnts.txt to write point coordinate
-    std::ofstream pntsFile("D:/Github-Projects/RouteOptimizer/db/" + flePnts);
+    std::ofstream pntsFile("../db/" + flePnts);
     if (!pntsFile.is_open()) {
         std::cout << "Failed to open the pnts.txt file." << std::endl;
         return;
@@ -152,7 +152,7 @@ void Graph::isGenerate() {
     pntsFile.close();
 
     // open edges.txt to write edge information
-    std::ofstream edgesFile("D:/Github-Projects/RouteOptimizer/db/" + fleEdges);
+    std::ofstream edgesFile("../db/" + fleEdges);
     if (!edgesFile.is_open()) {
         std::cout << "Failed to open the edges.txt file." << std::endl;
         return;
@@ -215,16 +215,16 @@ void Graph::isGenerate() {
 
     // write the gnuplot command to set visual graph
     fprintf(gnuplotPipe, "set terminal png\n");
-    fprintf(gnuplotPipe, "set output 'D:/Github-Projects/RouteOptimizer/img/graph.png'\n");
+    fprintf(gnuplotPipe, "set output '../img/graph.png'\n");
     fprintf(gnuplotPipe, "set key off\n");
     fprintf(gnuplotPipe, "set xrange [0:100]\n");
     fprintf(gnuplotPipe, "set yrange [0:100]\n");
-    fprintf(gnuplotPipe, "plot 'D:/Github-Projects/RouteOptimizer/db/edges_data.txt' using 1:2:3 with labels font ',8' offset -1,-1 textcolor 'black' point pt 7 ps 2 notitle,'' using 1:2 with linespoint pt 7 ps 2 notitle,'D:/Github-Projects/RouteOptimizer/db/weights_data.txt' using 1:2:3 with labels tc rgb 'red' notitle\n");
+    fprintf(gnuplotPipe, "plot '../db/edges_data.txt' using 1:2:3 with labels font ',8' offset -1,-1 textcolor 'black' point pt 7 ps 2 notitle,'' using 1:2 with linespoint pt 7 ps 2 notitle,'../db/weights_data.txt' using 1:2:3 with labels tc rgb 'red' notitle\n");
 
     _pclose(gnuplotPipe);
 
     // Open the generated graph image
-    std::string command = "start D:/Github-Projects/RouteOptimizer/img/graph.png";
+    std::string command = "start ../img/graph.png";
     system(command.c_str());
 
     return;
